@@ -1,4 +1,4 @@
-# WB Atelier
+# WorkBuddy Skin Gallery
 
 WorkBuddy 皮肤 Gallery 与管理器下载网站，部署为 GitHub Pages 静态网页。
 

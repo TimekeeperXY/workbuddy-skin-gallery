@@ -14,6 +14,14 @@ async function capture(viewport, output) {
 }
 
 const desktop = await capture({ width: 1440, height: 1000 }, "qa-desktop-full.png");
+const cardSizes = await desktop.locator(".theme-card").evaluateAll((cards) => cards.map((card) => {
+  const rect = card.getBoundingClientRect();
+  return { width: Math.round(rect.width), height: Math.round(rect.height) };
+}));
+const uniformCards = new Set(cardSizes.map(({ width, height }) => `${width}x${height}`)).size === 1;
+const vivianCard = desktop.locator(".theme-card", { hasText: "绝区零·维琳娜·闲影" });
+const vivianDownload = await vivianCard.getByRole("link", { name: /下载 \.wbskin/ }).getAttribute("href");
+const vivianImageSize = await vivianCard.locator("img").evaluate((image) => ({ width: image.naturalWidth, height: image.naturalHeight }));
 await desktop.getByRole("button", { name: "动漫", exact: true }).click();
 await desktop.waitForTimeout(500);
 const animeCount = await desktop.locator(".theme-card").count();
@@ -25,7 +33,7 @@ await desktop.getByLabel("搜索皮肤").fill("不存在的皮肤");
 const emptyVisible = await desktop.locator(".empty-state").isVisible();
 await desktop.getByLabel("切换浅色模式").click();
 const lightActive = await desktop.locator(".site.light").count();
-console.log(JSON.stringify({ animeCount, modalVisible, emptyVisible, lightActive: Boolean(lightActive) }));
+console.log(JSON.stringify({ cardSizes, uniformCards, vivianDownload, vivianImageSize, animeCount, modalVisible, emptyVisible, lightActive: Boolean(lightActive) }));
 await desktop.close();
 
 const mobile = await capture({ width: 390, height: 844 }, "qa-mobile-full.png");
