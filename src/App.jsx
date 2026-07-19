@@ -24,7 +24,7 @@ const themes = [
   {
     id: "jjlin",
     name: "林俊杰·午夜舞台",
-    author: "WB Atelier",
+    author: "WorkBuddy Skin Gallery",
     version: "1.1.0",
     mode: "深色",
     category: "舞台",
@@ -38,7 +38,7 @@ const themes = [
   {
     id: "angels",
     name: "妄想天使·心动舞台",
-    author: "WB Atelier",
+    author: "WorkBuddy Skin Gallery",
     version: "1.0.1",
     mode: "浅色",
     category: "动漫",
@@ -51,7 +51,7 @@ const themes = [
   {
     id: "time",
     name: "光阴副本",
-    author: "WB Atelier",
+    author: "WorkBuddy Skin Gallery",
     version: "1.0.0",
     mode: "深色",
     category: "氛围",
@@ -63,21 +63,21 @@ const themes = [
   },
   {
     id: "vivian",
-    name: "绝区零·维琳娜",
-    author: "WB Atelier",
-    version: "1.0.0",
+    name: "绝区零·维琳娜·闲影",
+    author: "WorkBuddy Skin Gallery",
+    version: "2.0.0",
     mode: "浅色",
     category: "动漫",
     image: asset("images/themes/vivian.jpg"),
-    file: `${releaseBase}/zzz-vivian-v1.0.0.wbskin`,
-    size: "7.3 MB",
-    description: "冰蓝、珍珠白与香槟金，重构出轻盈优雅的全界面体验。",
-    colors: ["#dcebf5", "#adbfd5", "#d3b36e"],
+    file: `${releaseBase}/zzz-vivian-leisure-v2.0.0.wbskin`,
+    size: "7.2 MB",
+    description: "维琳娜居于工作区右侧，珍珠白与深靛蓝为内容留出安静空间。",
+    colors: ["#edf2fb", "#5068a8", "#d4b775"],
   },
   {
     id: "bleach",
     name: "BLEACH·死神境界",
-    author: "WB Atelier",
+    author: "WorkBuddy Skin Gallery",
     version: "1.0.0",
     mode: "浅色",
     category: "动漫",
@@ -93,9 +93,9 @@ const filters = ["全部", "深色", "浅色", "动漫", "舞台", "氛围"];
 
 function Logo() {
   return (
-    <a className="brand" href="#top" aria-label="WB Atelier 首页">
+    <a className="brand" href="#top" aria-label="WorkBuddy Skin Gallery 首页">
       <span className="brand-mark"><span>W</span><span>B</span></span>
-      <span className="brand-name">WB Atelier</span>
+      <span className="brand-name">WorkBuddy Skin Gallery</span>
     </a>
   );
 }
@@ -177,7 +177,7 @@ function App() {
       <main>
         <section className="hero container">
           <motion.div className="hero-copy" initial={reduceMotion ? false : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
-            <p className="eyebrow"><Sparkle size={15} weight="fill" /> WorkBuddy Skin Gallery</p>
+            <p className="eyebrow"><Sparkle size={15} weight="fill" /> 皮肤与管理器下载</p>
             <h1>皮肤在这里，<br />管理器也在这里。</h1>
             <p className="hero-text">下载管理器与 `.wbskin` 文件，几次点击就能换上新的 WorkBuddy 外观。</p>
             <div className="hero-actions">
