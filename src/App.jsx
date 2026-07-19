@@ -241,7 +241,7 @@ function App() {
                 <span><Check size={18} weight="bold" /> 不修改 WorkBuddy 安装文件</span>
               </div>
               <div className="os-downloads">
-                <a className="os-button" href={`${releaseBase}/WorkBuddy-Skin-Manager-Setup-0.1.0.exe`}>
+                <a className="os-button" href={`${releaseBase}/WorkBuddy-Skin-Manager-Setup-0.1.1.exe`}>
                   <WindowsLogo size={24} weight="duotone" />
                   <span><small>Windows 10 / 11</small><strong>下载安装包</strong></span>
                   <DownloadSimple size={20} weight="bold" />
