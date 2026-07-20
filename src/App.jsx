@@ -22,6 +22,33 @@ const releaseBase = "https://github.com/TimekeeperXY/workbuddy-skin-gallery/rele
 
 const themes = [
   {
+    id: "baxian",
+    name: "八仙！星夜归位",
+    author: "WorkBuddy Skin Gallery",
+    version: "1.0.0",
+    mode: "深色",
+    category: "国风",
+    image: asset("images/themes/baxian.jpg"),
+    file: `${releaseBase}/baxian-movie-dark-v1.0.0.wbskin`,
+    size: "8.5 MB",
+    description: "暖金神话群像与深色工作台结合，把职场入口变成八仙夜行的冒险开场。",
+    colors: ["#050610", "#e9c77e", "#52c5a4"],
+    featured: true,
+  },
+  {
+    id: "tiga",
+    name: "迪迦奥特曼·星云作战舱",
+    author: "WorkBuddy Skin Gallery",
+    version: "1.0.0",
+    mode: "深色",
+    category: "特摄",
+    image: asset("images/themes/tiga.jpg"),
+    file: `${releaseBase}/tiga-ultraman-dark-v1.0.0.wbskin`,
+    size: "5.8 MB",
+    description: "红蓝光轨、银灰装甲面板和宇宙背景，为 WorkBuddy 换上深色作战舱。",
+    colors: ["#050713", "#51d7ff", "#d8243f"],
+  },
+  {
     id: "jjlin",
     name: "林俊杰·午夜舞台",
     author: "WorkBuddy Skin Gallery",
@@ -33,7 +60,6 @@ const themes = [
     size: "32.8 MB",
     description: "六张舞台影像随页面切换，让每一次任务都像演出开场。",
     colors: ["#07182b", "#1e6f9f", "#d1a75d"],
-    featured: true,
   },
   {
     id: "angels",
@@ -89,7 +115,7 @@ const themes = [
   },
 ];
 
-const filters = ["全部", "深色", "浅色", "动漫", "舞台", "氛围"];
+const filters = ["全部", "深色", "浅色", "动漫", "国风", "特摄", "舞台", "氛围"];
 
 function Logo() {
   return (
@@ -186,11 +212,11 @@ function App() {
             </div>
           </motion.div>
           <motion.div className="hero-visual" initial={reduceMotion ? false : { opacity: 0, x: 36, rotate: 1.5 }} animate={{ opacity: 1, x: 0, rotate: 0 }} transition={{ duration: 0.85, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}>
-            <img src={asset("images/themes/jjlin.jpg")} alt="林俊杰午夜舞台皮肤在 WorkBuddy 中的效果" />
+            <img src={asset("images/themes/baxian.jpg")} alt="八仙星夜归位皮肤在 WorkBuddy 中的效果" />
             <div className="hero-caption">
               <span>本周精选</span>
-              <strong>林俊杰·午夜舞台</strong>
-              <a href={`${releaseBase}/jjlin-midnight-stage-v1.1.0.wbskin`} aria-label="下载林俊杰午夜舞台皮肤"><ArrowDown size={20} weight="bold" /></a>
+              <strong>八仙！星夜归位</strong>
+              <a href={`${releaseBase}/baxian-movie-dark-v1.0.0.wbskin`} aria-label="下载八仙星夜归位皮肤"><ArrowDown size={20} weight="bold" /></a>
             </div>
           </motion.div>
         </section>
