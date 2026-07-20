@@ -115,6 +115,36 @@ const themes = [
   },
 ];
 
+const tools = [
+  {
+    id: "musicbar",
+    name: "MusicBar",
+    tagline: "Windows 任务栏音乐播控与同步歌词工具",
+    image: asset("images/tools/musicbar.jpg"),
+    page: "https://timekeeperxy.github.io/MusicBar/",
+    repo: "https://github.com/TimekeeperXY/MusicBar",
+    accent: "#2f83bf",
+  },
+  {
+    id: "lanclip",
+    name: "LanClip",
+    tagline: "局域网内文字和截图剪贴板同步",
+    image: asset("images/tools/lanclip.jpg"),
+    page: "https://timekeeperxy.github.io/LanClip/",
+    repo: "https://github.com/TimekeeperXY/LanClip",
+    accent: "#1f8758",
+  },
+  {
+    id: "vr2mp4",
+    name: "VR2MP4",
+    tagline: "本地 VR 视频播放与 360° 转普通 MP4",
+    image: asset("images/tools/vr2mp4.jpg"),
+    page: "https://timekeeperxy.github.io/VR2MP4/",
+    repo: "https://github.com/TimekeeperXY/VR2MP4",
+    accent: "#a5df35",
+  },
+];
+
 const filters = ["全部", "深色", "浅色", "动漫", "国风", "特摄", "舞台", "氛围"];
 
 function Logo() {
@@ -189,6 +219,7 @@ function App() {
           <div className="nav-links">
             <a href="#themes">皮肤</a>
             <a href="#manager">管理器</a>
+            <a href="#tools">百宝箱</a>
             <a href="#guide">使用指南</a>
           </div>
           <div className="nav-actions">
@@ -283,6 +314,35 @@ function App() {
           </div>
         </section>
 
+        <section className="tool-wall container" id="tools">
+          <div className="section-title">
+            <p className="eyebrow"><Sparkle size={15} weight="fill" /> Created by 晓阳的百宝箱</p>
+            <h2>顺手看看，<br />还有这些开源小工具。</h2>
+            <p>同一个创作者维护的 GitHub Pages 项目，适合放进工作流里慢慢试。</p>
+          </div>
+          <div className="tool-strip" aria-label="晓阳的百宝箱开源工具">
+            {tools.map((tool) => (
+              <a className="tool-ad" href={tool.page} target="_blank" rel="noreferrer" key={tool.id} style={{ "--tool-accent": tool.accent }}>
+                <img src={tool.image} alt={`${tool.name} GitHub Pages 预览`} />
+                <span className="tool-ad-copy">
+                  <strong>{tool.name}</strong>
+                  <small>{tool.tagline}</small>
+                </span>
+                <span className="tool-ad-action">
+                  查看项目 <ArrowRight size={16} weight="bold" />
+                </span>
+              </a>
+            ))}
+          </div>
+          <div className="tool-links">
+            {tools.map((tool) => (
+              <a href={tool.repo} target="_blank" rel="noreferrer" key={tool.repo}>
+                <GithubLogo size={18} /> {tool.name} GitHub
+              </a>
+            ))}
+          </div>
+        </section>
+
         <section className="guide container" id="guide">
           <div className="guide-copy">
             <h2>管理器搭配皮肤文件使用。</h2>
@@ -298,7 +358,7 @@ function App() {
 
       <footer className="footer container">
         <Logo />
-        <p>管理器与皮肤文件，集中在一个清爽的下载页面。</p>
+        <p>Created by 晓阳的百宝箱 · 管理器与皮肤文件，集中在一个清爽的下载页面。</p>
         <a className="icon-button" href="https://github.com/TimekeeperXY/workbuddy-skin-gallery/releases" target="_blank" rel="noreferrer" aria-label="查看 GitHub Releases"><GithubLogo size={20} /></a>
       </footer>
 
