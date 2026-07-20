@@ -315,6 +315,13 @@ function App() {
                   <DownloadSimple size={20} weight="bold" />
                 </a>
               </div>
+              <div className="macos-note">
+                <strong>macOS 提示“文件损坏”时</strong>
+                <p>这是未签名应用触发的隔离保护。下载后可在终端执行下面命令，再打开 DMG 并把应用拖入 Applications。</p>
+                <code>xattr -dr com.apple.quarantine ~/Downloads/WorkBuddy-Skin-Manager-0.1.0-arm64.dmg</code>
+                <p>如果已经拖入 Applications，但打开仍提示损坏，再执行：</p>
+                <code>xattr -dr com.apple.quarantine "/Applications/WorkBuddy Skin Manager.app"</code>
+              </div>
               <p className="platform-note">macOS 安装包适用于 Apple 芯片设备。</p>
             </div>
           </div>

@@ -165,6 +165,10 @@ img { display: block; max-width: 100%; }
 .os-button.disabled { opacity: .54; cursor: not-allowed; }
 .os-button .soon { display: block; color: var(--muted); font-size: 12px; }
 .platform-note { margin-top: 14px !important; font-size: 12px; }
+.macos-note { display: grid; gap: 10px; margin-top: 16px; padding: 15px; border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--line)); border-radius: 12px; color: var(--muted); background: color-mix(in srgb, var(--surface) 68%, transparent); }
+.macos-note strong { color: var(--text); font-size: 14px; }
+.macos-note p { margin: 0; font-size: 12px; line-height: 1.65; }
+.macos-note code { display: block; padding: 10px 11px; border: 1px solid var(--line); border-radius: 9px; color: color-mix(in srgb, var(--accent) 78%, white); background: rgba(2, 14, 12, .74); font-family: "Cascadia Mono", "SFMono-Regular", Consolas, monospace; font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; white-space: normal; }
 
 .tool-wall { padding-block: 126px 122px; }
 .tool-wall .section-title { max-width: 760px; }
