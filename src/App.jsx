@@ -1,18 +1,25 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   ArrowDown,
+  ArrowLeft,
   ArrowRight,
   AppleLogo,
+  BookOpen,
+  BracketsCurly,
   Check,
+  Copy,
   DownloadSimple,
   GithubLogo,
   Heart,
   MagnifyingGlass,
   Moon,
   Package,
+  Palette,
+  Robot,
   Sparkle,
   Sun,
+  TerminalWindow,
   WindowsLogo,
   X,
 } from "@phosphor-icons/react";
@@ -20,6 +27,7 @@ import {
 const asset = (path) => `${import.meta.env.BASE_URL}${path}`;
 const releaseBase = "https://github.com/TimekeeperXY/workbuddy-skin-gallery/releases/download/v0.1.0";
 const managerIcon = asset("images/skin-manager-icon-small.png");
+const skillRepo = "https://github.com/TimekeeperXY/workbuddy-dream-skin-skill";
 
 const themes = [
   {
@@ -148,6 +156,33 @@ const tools = [
 
 const filters = ["全部", "深色", "浅色", "动漫", "国风", "特摄", "舞台", "氛围"];
 
+const agentGuides = {
+  workbuddy: {
+    label: "WorkBuddy",
+    kicker: "直接交给助理",
+    command: `请打开并学习这个 Agent Skill：\n${skillRepo}\n\n先读取仓库根目录 SKILL.md，再检查 references 和 scripts。确认能力后，启动 WorkBuddy 的 Console DOM 审计，生成 selector map，并基于我接下来提供的参考图制作可导入的 .wbskin。不要修改 app.asar。`,
+    steps: ["把上面的完整指令发送给支持文件与终端操作的 WorkBuddy 助理。", "允许助理克隆公开仓库，并确认已读取根目录 SKILL.md。", "准备参考图与重点页面，让助理先审计 DOM，再开始设计。"],
+  },
+  codex: {
+    label: "Codex",
+    kicker: "安装到个人 Skills",
+    command: `git clone ${skillRepo}.git "$env:USERPROFILE\\.codex\\skills\\workbuddy-dream-skin"`,
+    steps: ["在 PowerShell 执行安装命令。", "重新打开 Codex，或开始一个新任务让 Skills 重新载入。", "输入：使用 workbuddy-dream-skin skill，为正在运行的 WorkBuddy 制作完整皮肤。"],
+  },
+  openclaw: {
+    label: "OpenClaw",
+    kicker: "通过官方 Skills CLI",
+    command: "openclaw skills install git:TimekeeperXY/workbuddy-dream-skin-skill@main --global",
+    steps: ["在 OpenClaw 所在主机执行安装命令。", "使用 openclaw skills list 确认 skill 已被识别。", "新建会话并要求它使用 workbuddy-dream-skin 生成 WorkBuddy 皮肤。"],
+  },
+  generic: {
+    label: "其他 Agent",
+    kicker: "兼容 SKILL.md 标准",
+    command: `git clone ${skillRepo}.git .agents/skills/workbuddy-dream-skin`,
+    steps: ["把仓库克隆到产品支持的个人或工作区 Skills 目录。", "确认 Agent 能读取仓库根目录的 SKILL.md。", "把 WorkBuddy 运行环境、参考图和目标页面交给 Agent，并要求先执行 DOM 审计。"],
+  },
+};
+
 function Logo() {
   return (
     <a className="brand" href="#top" aria-label="WorkBuddy Skin Gallery 首页">
@@ -199,7 +234,108 @@ function ThemeCard({ theme, onPreview }) {
   );
 }
 
-function App() {
+function CopyButton({ value }) {
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    await navigator.clipboard.writeText(value);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1600);
+  };
+  return (
+    <button className="copy-button" onClick={copy} aria-label="复制指令">
+      {copied ? <Check size={17} weight="bold" /> : <Copy size={17} />}
+      {copied ? "已复制" : "复制"}
+    </button>
+  );
+}
+
+function LearnPage() {
+  const [agent, setAgent] = useState("workbuddy");
+  const guide = agentGuides[agent];
+  const starterPrompt = `使用 workbuddy-dream-skin skill。先连接正在运行的 WorkBuddy，读取真实 DOM 和 computed styles，生成 selector map，再根据我的参考图制作主题。重点验证菜单、弹窗、专家卡片、文件产物、悬停状态和首次启用流程，最后输出 .wbskin 与独立一键启用包。`;
+
+  return (
+    <div className="site learn-site">
+      <header className="nav-shell">
+        <nav className="nav container" aria-label="学习页导航">
+          <Logo />
+          <div className="nav-links learn-nav-links">
+            <a href="#/learn">安装 Skill</a>
+            <a href="#workflow">生成流程</a>
+            <a href="#prompt">启动指令</a>
+          </div>
+          <a className="nav-download" href="#top"><ArrowLeft size={18} weight="bold" /> 返回首页</a>
+        </nav>
+      </header>
+
+      <main id="learn-top">
+        <section className="learn-hero container">
+          <div className="learn-hero-copy">
+            <p className="eyebrow"><BracketsCurly size={15} weight="bold" /> OPEN SOURCE AGENT SKILL</p>
+            <h1>教会你的 Agent，亲手设计 WorkBuddy 皮肤。</h1>
+            <p>从真实 DOM 到 selector map，再到可安装的 `.wbskin`。这套 Skill 把设计、注入、测试和打包变成一条可复用流程。</p>
+            <div className="hero-actions">
+              <a className="primary-button" href="#install">选择你的 Agent <ArrowDown size={18} weight="bold" /></a>
+              <a className="text-button" href={skillRepo} target="_blank" rel="noreferrer"><GithubLogo size={19} /> 查看源码</a>
+            </div>
+          </div>
+          <div className="skill-file" aria-label="Skill 文件结构预览">
+            <div className="skill-file-bar"><span>workbuddy-dream-skin</span><span>MIT</span></div>
+            <pre><code>{`SKILL.md\nagents/\nassets/runtime-template/\nreferences/\n  design-and-dom.md\n  field-lessons.md\n  qa-checklist.md\nscripts/\n  extract_selector_map.mjs`}</code></pre>
+            <div className="skill-file-foot"><span><Check size={16} weight="bold" /> 不修改 app.asar</span><span><Check size={16} weight="bold" /> Console DOM 驱动</span></div>
+          </div>
+        </section>
+
+        <section className="install-section container" id="install">
+          <div className="section-title">
+            <h2>选择 Agent，复制一条指令。</h2>
+            <p>仓库根目录就是标准 `SKILL.md`，可以被支持 Agent Skills 的产品直接学习。</p>
+          </div>
+          <div className="agent-tabs" role="tablist" aria-label="选择 Agent 产品">
+            {Object.entries(agentGuides).map(([key, item]) => (
+              <button key={key} role="tab" aria-selected={agent === key} className={agent === key ? "active" : ""} onClick={() => setAgent(key)}>
+                <Robot size={18} weight={agent === key ? "fill" : "regular"} /> {item.label}
+              </button>
+            ))}
+          </div>
+          <div className="install-console">
+            <div className="console-heading"><div><small>{guide.kicker}</small><strong>{guide.label} 安装与学习指令</strong></div><CopyButton value={guide.command} /></div>
+            <pre><code>{guide.command}</code></pre>
+          </div>
+          <ol className="install-steps">
+            {guide.steps.map((step, index) => <li key={step}><span>{String(index + 1).padStart(2, "0")}</span><p>{step}</p></li>)}
+          </ol>
+        </section>
+
+        <section className="workflow-section" id="workflow">
+          <div className="container workflow-inner">
+            <div className="workflow-copy"><h2>不是套 CSS，先理解真实界面。</h2><p>截图决定审美方向，Console DOM 决定选择器是否准确。两者缺一不可。</p></div>
+            <div className="workflow-rail">
+              <article><span>01</span><h3>读取 DOM</h3><p>扫描真实页面、弹窗和交互状态。</p></article>
+              <article><span>02</span><h3>生成地图</h3><p>把稳定元素整理成 selector map。</p></article>
+              <article><span>03</span><h3>设计主题</h3><p>用单一背景责任层和精确叶子选择器实现视觉。</p></article>
+              <article><span>04</span><h3>测试打包</h3><p>冷启动验证后输出 `.wbskin` 与独立包。</p></article>
+            </div>
+          </div>
+        </section>
+
+        <section className="prompt-section container" id="prompt">
+          <div className="prompt-heading"><div><h2>第一次生成，就从这段话开始。</h2><p>安装完成后，把参考图和这段启动指令一起发给 Agent。</p></div><CopyButton value={starterPrompt} /></div>
+          <blockquote>{starterPrompt}</blockquote>
+          <div className="prompt-notes"><span>建议素材：人物或氛围参考图</span><span>建议页面：新建任务、助理、项目、专家、自动化、文件</span><span>建议产物：`.wbskin` + 一键启用包</span></div>
+        </section>
+      </main>
+
+      <footer className="footer container">
+        <Logo />
+        <p>Open source under MIT · Built from real WorkBuddy skin iterations.</p>
+        <a className="icon-button" href={skillRepo} target="_blank" rel="noreferrer" aria-label="打开 Skill GitHub 仓库"><GithubLogo size={20} /></a>
+      </footer>
+    </div>
+  );
+}
+
+function HomePage() {
   const [filter, setFilter] = useState("全部");
   const [query, setQuery] = useState("");
   const [preview, setPreview] = useState(null);
@@ -220,8 +356,8 @@ function App() {
           <div className="nav-links">
             <a href="#themes">皮肤</a>
             <a href="#manager">管理器</a>
-            <a href="#tools">百宝箱</a>
-            <a href="#guide">使用指南</a>
+            <a href="#/learn">学习制作</a>
+            <a href={skillRepo} target="_blank" rel="noreferrer">开源 Skill</a>
           </div>
           <div className="nav-actions">
             <button className="icon-button theme-toggle" onClick={() => setLight(!light)} aria-label={light ? "切换深色模式" : "切换浅色模式"}>
@@ -233,28 +369,25 @@ function App() {
       </header>
 
       <main>
-        <section className="hero container">
-          <motion.div className="hero-copy" initial={reduceMotion ? false : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
-            <p className="eyebrow"><Sparkle size={15} weight="fill" /> #4cc9af edition</p>
-            <h1>皮肤在这里，管理器也在这里。</h1>
-            <p className="hero-text">下载管理器与 `.wbskin` 文件，几次点击就能换上新的 WorkBuddy 外观。</p>
-            <div className="hero-actions">
-              <a className="primary-button" href="#themes">浏览皮肤 <ArrowDown size={18} weight="bold" /></a>
-              <a className="text-button" href="#manager">下载管理器 <ArrowRight size={18} weight="bold" /></a>
-            </div>
-          </motion.div>
-          <motion.div className="hero-visual hero-stack" initial={reduceMotion ? false : { opacity: 0, x: 36, rotate: 1.5 }} animate={{ opacity: 1, x: 0, rotate: 0 }} transition={{ duration: 0.85, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}>
-            <img src={asset("images/themes/baxian.jpg")} alt="八仙星夜归位皮肤在 WorkBuddy 中的效果" />
-            <div className="hero-icon-card">
-              <img src={managerIcon} alt="WorkBuddy Skin Manager 图标" />
-              <span>Skin Manager</span>
-            </div>
-            <div className="hero-caption">
-              <span>本周精选</span>
-              <strong>八仙！星夜归位</strong>
-              <a href={`${releaseBase}/baxian-movie-dark-v1.0.0.wbskin`} aria-label="下载八仙星夜归位皮肤"><ArrowDown size={20} weight="bold" /></a>
-            </div>
-          </motion.div>
+        <section className="hero-shell" style={{ "--hero-image": `url(${asset("images/themes/baxian.jpg")})` }}>
+          <div className="hero container">
+            <motion.div className="hero-copy" initial={reduceMotion ? false : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
+              <p className="eyebrow"><Sparkle size={15} weight="fill" /> WORKBUDDY SKIN GALLERY</p>
+              <h1>让你的 WorkBuddy，拥有自己的样子。</h1>
+              <p className="hero-text">下载皮肤，安装管理器，或者让 Agent 学会从零设计一套。</p>
+              <div className="hero-actions">
+                <a className="primary-button" href="#themes">浏览皮肤 <ArrowDown size={18} weight="bold" /></a>
+                <a className="hero-secondary" href="#/learn">学习制作 <ArrowRight size={18} weight="bold" /></a>
+              </div>
+            </motion.div>
+            <div className="hero-proof"><span>Featured skin</span><strong>八仙！星夜归位</strong><small>Dark · v1.0.0</small></div>
+          </div>
+        </section>
+
+        <section className="launchpad container" aria-label="快速入口">
+          <a href="#manager"><Package size={24} weight="duotone" /><span><small>01 · APP</small><strong>下载皮肤管理器</strong><p>导入、预览、启用与恢复。</p></span><ArrowRight size={20} /></a>
+          <a href="#themes"><Palette size={24} weight="duotone" /><span><small>02 · GALLERY</small><strong>挑选 `.wbskin`</strong><p>浏览可直接导入的完整主题。</p></span><ArrowRight size={20} /></a>
+          <a href="#/learn"><BookOpen size={24} weight="duotone" /><span><small>03 · OPEN SKILL</small><strong>教会 Agent 制作</strong><p>从真实 DOM 到可分发皮肤包。</p></span><ArrowRight size={20} /></a>
         </section>
 
         <section className="library container" id="themes">
@@ -327,51 +460,17 @@ function App() {
           </div>
         </section>
 
-        <section className="tool-wall container" id="tools">
-          <div className="section-title">
-            <p className="eyebrow"><Sparkle size={15} weight="fill" /> Created by 晓阳的百宝箱</p>
-            <h2>顺手看看，还有这些开源小工具。</h2>
-            <p>同一个创作者维护的 GitHub Pages 项目，适合放进工作流里慢慢试。</p>
-          </div>
-          <div className="tool-strip" aria-label="晓阳的百宝箱开源工具">
-            {tools.map((tool) => (
-              <a className="tool-ad" href={tool.page} target="_blank" rel="noreferrer" key={tool.id} style={{ "--tool-accent": tool.accent }}>
-                <img src={tool.image} alt={`${tool.name} GitHub Pages 预览`} />
-                <span className="tool-ad-copy">
-                  <strong>{tool.name}</strong>
-                  <small>{tool.tagline}</small>
-                </span>
-                <span className="tool-ad-action">
-                  查看项目 <ArrowRight size={16} weight="bold" />
-                </span>
-              </a>
-            ))}
-          </div>
-          <div className="tool-links">
-            {tools.map((tool) => (
-              <a href={tool.repo} target="_blank" rel="noreferrer" key={tool.repo}>
-                <GithubLogo size={18} /> {tool.name} GitHub
-              </a>
-            ))}
-          </div>
-        </section>
-
-        <section className="guide container" id="guide">
-          <div className="guide-copy">
-            <h2>管理器搭配皮肤文件使用。</h2>
-            <p>先安装对应系统的管理器，再下载喜欢的 `.wbskin` 文件并导入。</p>
-          </div>
-          <div className="guide-steps">
-            <article><span><Package size={24} /></span><h3>安装管理器</h3><p>下载 Windows 或 macOS 安装包并完成安装。</p></article>
-            <article><span><DownloadSimple size={24} /></span><h3>下载并导入</h3><p>保存喜欢的 `.wbskin`，在管理器中选择导入。</p></article>
-            <article><span><Sparkle size={24} /></span><h3>预览并启用</h3><p>确认预览效果，点击启用并重新打开 WorkBuddy。</p></article>
+        <section className="skill-callout" id="skill">
+          <div className="container skill-callout-inner">
+            <div><BracketsCurly size={34} weight="duotone" /><h2>不只下载，也可以自己创造。</h2><p>开源 Skill 会指导 Agent 读取 WorkBuddy 的真实 UI，生成 selector map，并完成设计、测试与打包。</p></div>
+            <div className="skill-actions"><a className="primary-button" href="#/learn">学习这个 Skill <BookOpen size={18} /></a><a href={skillRepo} target="_blank" rel="noreferrer"><GithubLogo size={19} /> GitHub 源码</a></div>
           </div>
         </section>
       </main>
 
       <footer className="footer container">
         <Logo />
-        <p>Created by 晓阳的百宝箱 · 管理器与皮肤文件，集中在一个清爽的下载页面。</p>
+        <p>皮肤、管理器与开源生成 Skill，集中在一个入口。</p>
         <a className="icon-button" href="https://github.com/TimekeeperXY/workbuddy-skin-gallery/releases" target="_blank" rel="noreferrer" aria-label="查看 GitHub Releases"><GithubLogo size={20} /></a>
       </footer>
 
@@ -391,6 +490,17 @@ function App() {
       </AnimatePresence>
     </div>
   );
+}
+
+function App() {
+  const [route, setRoute] = useState(window.location.hash);
+  useEffect(() => {
+    const updateRoute = () => setRoute(window.location.hash);
+    window.addEventListener("hashchange", updateRoute);
+    return () => window.removeEventListener("hashchange", updateRoute);
+  }, []);
+  const learnRoutes = new Set(["#/learn", "#install", "#workflow", "#prompt"]);
+  return learnRoutes.has(route) ? <LearnPage /> : <HomePage />;
 }
 
 export default App;

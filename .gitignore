@@ -3,5 +3,5 @@ dist/
 release-assets/
 source-images/
 qa-*.png
+dev-server*.log
 .DS_Store
-

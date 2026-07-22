@@ -1,8 +1,17 @@
 # WorkBuddy Skin Gallery
 
-WorkBuddy 皮肤 Gallery 与管理器下载网站，部署为 GitHub Pages 静态网页。
+WorkBuddy 皮肤、管理器与开源生成 Skill 的统一入口，部署为 GitHub Pages 静态网页。
 
 线上地址：<https://timekeeperxy.github.io/workbuddy-skin-gallery/>
+
+## 页面入口
+
+- Landing Page：管理器、皮肤库与开源 Skill 三条快速路径
+- 皮肤库：筛选、预览并下载可直接导入的 `.wbskin`
+- 管理器：下载 Windows 或 macOS 版本
+- Skill 学习页：访问 `#/learn`，按 Agent 产品复制安装命令与启动提示词
+
+皮肤生成 Skill 源码：<https://github.com/TimekeeperXY/workbuddy-dream-skin-skill>
 
 ## 本地运行
 

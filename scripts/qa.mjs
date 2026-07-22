@@ -5,10 +5,12 @@ const browser = await chromium.launch({
   headless: true,
 });
 
-async function capture(viewport, output) {
+const baseUrl = process.env.QA_URL || "http://127.0.0.1:5173/workbuddy-skin-gallery/";
+
+async function capture(viewport, output, route = "") {
   const page = await browser.newPage({ viewport, deviceScaleFactor: 1 });
   await page.emulateMedia({ reducedMotion: "reduce", colorScheme: "dark" });
-  await page.goto("http://127.0.0.1:5173/", { waitUntil: "networkidle" });
+  await page.goto(`${baseUrl}${route}`, { waitUntil: "networkidle" });
   await page.screenshot({ path: output, fullPage: true });
   return page;
 }
@@ -39,4 +41,18 @@ await desktop.close();
 const mobile = await capture({ width: 390, height: 844 }, "qa-mobile-full.png");
 console.log(JSON.stringify({ mobileScrollWidth: await mobile.evaluate(() => document.documentElement.scrollWidth), mobileViewport: 390 }));
 await mobile.close();
-await browser.close();
+
+const learnDesktop = await capture({ width: 1440, height: 1000 }, "qa-learn-desktop.png", "#/learn");
+await learnDesktop.getByRole("tab", { name: "OpenClaw" }).click();
+const openClawCommand = await learnDesktop.locator(".install-console code").textContent();
+console.log(JSON.stringify({ learnDesktopScrollWidth: await learnDesktop.evaluate(() => document.documentElement.scrollWidth), openClawCommand }));
+await learnDesktop.close();
+
+const learnMobile = await capture({ width: 390, height: 844 }, "qa-learn-mobile.png", "#/learn");
+console.log(JSON.stringify({ learnMobileScrollWidth: await learnMobile.evaluate(() => document.documentElement.scrollWidth), learnMobileViewport: 390 }));
+await learnMobile.close();
+await Promise.race([
+  browser.close(),
+  new Promise((resolve) => setTimeout(resolve, 3000)),
+]);
+process.exit(0);
