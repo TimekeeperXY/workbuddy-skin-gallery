@@ -4,4 +4,5 @@ release-assets/
 source-images/
 qa-*.png
 dev-server*.log
+vite-*.log
 .DS_Store

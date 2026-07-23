@@ -10,6 +10,7 @@ import {
   Check,
   Copy,
   DownloadSimple,
+  EnvelopeSimple,
   GithubLogo,
   Heart,
   MagnifyingGlass,
@@ -33,7 +34,8 @@ const themes = [
   {
     id: "baxian",
     name: "八仙！星夜归位",
-    author: "WorkBuddy Skin Gallery",
+    author: "@晓阳的百宝箱",
+    rights: "原创 · 个人免费",
     version: "1.0.0",
     mode: "深色",
     category: "国风",
@@ -47,7 +49,8 @@ const themes = [
   {
     id: "tiga",
     name: "迪迦奥特曼·星云作战舱",
-    author: "WorkBuddy Skin Gallery",
+    author: "@晓阳的百宝箱",
+    rights: "粉丝创作 · 非商业",
     version: "1.0.0",
     mode: "深色",
     category: "特摄",
@@ -60,20 +63,22 @@ const themes = [
   {
     id: "jjlin",
     name: "林俊杰·午夜舞台",
-    author: "WorkBuddy Skin Gallery",
+    author: "@晓阳的百宝箱",
+    rights: "粉丝创作 · 非商业",
     version: "1.1.0",
     mode: "深色",
     category: "舞台",
     image: asset("images/themes/jjlin.jpg"),
     file: `${releaseBase}/jjlin-midnight-stage-v1.1.0.wbskin`,
-    size: "32.8 MB",
+    size: "10.1 MB",
     description: "六张舞台影像随页面切换，让每一次任务都像演出开场。",
     colors: ["#07182b", "#1e6f9f", "#d1a75d"],
   },
   {
     id: "angels",
     name: "妄想天使·心动舞台",
-    author: "WorkBuddy Skin Gallery",
+    author: "@晓阳的百宝箱",
+    rights: "粉丝创作 · 非商业",
     version: "1.0.1",
     mode: "浅色",
     category: "动漫",
@@ -86,7 +91,8 @@ const themes = [
   {
     id: "time",
     name: "光阴副本",
-    author: "WorkBuddy Skin Gallery",
+    author: "@晓阳的百宝箱",
+    rights: "原创 · 个人免费",
     version: "1.0.0",
     mode: "深色",
     category: "氛围",
@@ -99,7 +105,8 @@ const themes = [
   {
     id: "vivian",
     name: "绝区零·维琳娜·闲影",
-    author: "WorkBuddy Skin Gallery",
+    author: "@晓阳的百宝箱",
+    rights: "粉丝创作 · 非商业",
     version: "2.0.0",
     mode: "浅色",
     category: "动漫",
@@ -112,13 +119,14 @@ const themes = [
   {
     id: "bleach",
     name: "BLEACH·死神境界",
-    author: "WorkBuddy Skin Gallery",
+    author: "@晓阳的百宝箱",
+    rights: "粉丝创作 · 非商业",
     version: "1.0.0",
     mode: "浅色",
     category: "动漫",
     image: asset("images/themes/bleach.jpg"),
     file: `${releaseBase}/bleach-soul-v1.0.0.wbskin`,
-    size: "36.4 MB",
+    size: "15.5 MB",
     description: "黑白漫画笔触与角色群像，为工作区注入凌厉的视觉节奏。",
     colors: ["#f0eee8", "#292826", "#d86b46"],
   },
@@ -219,7 +227,7 @@ function ThemeCard({ theme, onPreview }) {
         </div>
         <p className="theme-description">{theme.description}</p>
         <div className="theme-meta">
-          <span>{theme.mode}</span><span>{theme.category}</span><span>{theme.size}</span>
+          <span>{theme.mode}</span><span>{theme.category}</span><span>{theme.size}</span><span>{theme.rights}</span>
         </div>
         <div className="theme-footer">
           <div className="swatches" aria-label="主题配色">
@@ -271,7 +279,7 @@ function LearnPage() {
       <main id="learn-top">
         <section className="learn-hero container">
           <div className="learn-hero-copy">
-            <p className="eyebrow"><BracketsCurly size={15} weight="bold" /> OPEN SOURCE AGENT SKILL</p>
+            <p className="eyebrow"><BracketsCurly size={15} weight="bold" /> SOURCE AVAILABLE AGENT SKILL</p>
             <h1>教会你的 Agent，亲手设计 WorkBuddy 皮肤。</h1>
             <p>从真实 DOM 到 selector map，再到可安装的 `.wbskin`。这套 Skill 把设计、注入、测试和打包变成一条可复用流程。</p>
             <div className="hero-actions">
@@ -280,7 +288,7 @@ function LearnPage() {
             </div>
           </div>
           <div className="skill-file" aria-label="Skill 文件结构预览">
-            <div className="skill-file-bar"><span>workbuddy-dream-skin</span><span>MIT</span></div>
+            <div className="skill-file-bar"><span>workbuddy-dream-skin</span><span>PERSONAL / NON-COMMERCIAL</span></div>
             <pre><code>{`SKILL.md\nagents/\nassets/runtime-template/\nreferences/\n  design-and-dom.md\n  field-lessons.md\n  qa-checklist.md\nscripts/\n  extract_selector_map.mjs`}</code></pre>
             <div className="skill-file-foot"><span><Check size={16} weight="bold" /> 不修改 app.asar</span><span><Check size={16} weight="bold" /> Console DOM 驱动</span></div>
           </div>
@@ -328,8 +336,51 @@ function LearnPage() {
 
       <footer className="footer container">
         <Logo />
-        <p>Open source under MIT · Built from real WorkBuddy skin iterations.</p>
+        <p>© 2026 @晓阳的百宝箱 · Source Available · <a href="#/terms">版权与使用条款</a></p>
         <a className="icon-button" href={skillRepo} target="_blank" rel="noreferrer" aria-label="打开 Skill GitHub 仓库"><GithubLogo size={20} /></a>
+      </footer>
+    </div>
+  );
+}
+
+function TermsPage() {
+  return (
+    <div className="site terms-site">
+      <header className="nav-shell">
+        <nav className="nav container" aria-label="版权条款导航">
+          <Logo />
+          <a className="nav-download" href="#top"><ArrowLeft size={18} weight="bold" /> 返回首页</a>
+        </nav>
+      </header>
+      <main className="terms-main container">
+        <header className="terms-hero">
+          <p className="eyebrow">COPYRIGHT & USAGE</p>
+          <h1>版权与使用条款</h1>
+          <p>生效日期：2026 年 7 月 23 日。不同产品采用不同许可，请按下载内容对应的条款使用。</p>
+        </header>
+        <section className="terms-owner">
+          <strong>统一权利信息</strong>
+          <dl>
+            <div><dt>署名</dt><dd>@晓阳的百宝箱</dd></div>
+            <div><dt>官网</dt><dd>timekeeperxy.github.io/workbuddy-skin-gallery/</dd></div>
+            <div><dt>GitHub</dt><dd>github.com/TimekeeperXY</dd></div>
+            <div><dt>版权邮箱</dt><dd>timelinex@163.com</dd></div>
+          </dl>
+        </section>
+        <div className="terms-sections">
+          <section><span>01</span><h2>皮肤管理器</h2><p>闭源专有软件，仅授权个人非商业使用。未经书面许可，禁止再分发、镜像、转售、出租、重新打包、付费捆绑、提供付费下载或移除署名。完整条款以安装时显示的 EULA 为准。</p></section>
+          <section><span>02</span><h2>原创 `.wbskin`</h2><p>允许个人免费下载、导入和使用。禁止销售、付费分发、重新打包、镜像发布、作为课程或会员权益捆绑，以及移除作者、官网、许可文件或来源信息。</p></section>
+          <section><span>03</span><h2>第三方 IP 皮肤</h2><p>属于非官方粉丝创作，仅限个人非商业使用。主题适配代码与包装结构归 @晓阳的百宝箱；相关人物肖像、角色、商标、照片及原始素材权利归各自权利人。本站不授予任何第三方 IP 商业权利。</p></section>
+          <section><span>04</span><h2>生成 Skill</h2><p>Skill 采用 Source Available 非商业许可，并非 OSI 开源软件。允许个人非商业学习和私下修改；禁止销售、付费服务、付费分发、商业捆绑、再发布和移除署名。商业授权请通过版权邮箱联系。</p></section>
+          <section><span>05</span><h2>网站源码</h2><p>网站源码、设计、文案与原创视觉材料保留全部权利。公开访问不代表授予复制、镜像、重新部署、销售或制作商业衍生网站的许可。</p></section>
+          <section><span>06</span><h2>官方来源与维权</h2><p>仅本网站和 GitHub 账号 TimekeeperXY 属于官方发布渠道。发现冒充官方、盗卖、移除署名或未经许可的付费分发时，请保存链接、截图、订单与文件哈希，并发送至 timelinex@163.com。</p></section>
+        </div>
+        <aside className="terms-note">这些条款不授予你未拥有的第三方人物、角色、照片、音乐、商标或其他素材权利。法律另有强制规定的，从其规定。</aside>
+      </main>
+      <footer className="footer container">
+        <Logo />
+        <p>© 2026 @晓阳的百宝箱 · All rights reserved.</p>
+        <a className="icon-button" href="mailto:timelinex@163.com" aria-label="发送版权邮件"><EnvelopeSimple size={20} /></a>
       </footer>
     </div>
   );
@@ -357,7 +408,7 @@ function HomePage() {
             <a href="#themes">皮肤</a>
             <a href="#manager">管理器</a>
             <a href="#/learn">学习制作</a>
-            <a href={skillRepo} target="_blank" rel="noreferrer">开源 Skill</a>
+            <a href={skillRepo} target="_blank" rel="noreferrer">公开源码 Skill</a>
           </div>
           <div className="nav-actions">
             <button className="icon-button theme-toggle" onClick={() => setLight(!light)} aria-label={light ? "切换深色模式" : "切换浅色模式"}>
@@ -437,7 +488,7 @@ function HomePage() {
                 <span><Check size={18} weight="bold" /> 不修改 WorkBuddy 安装文件</span>
               </div>
               <div className="os-downloads">
-                <a className="os-button" href={`${releaseBase}/WorkBuddy-Skin-Manager-Setup-0.1.4.exe`}>
+                <a className="os-button" href={`${releaseBase}/WorkBuddy-Skin-Manager-Setup-0.1.5.exe`}>
                   <WindowsLogo size={24} weight="duotone" />
                   <span><small>Windows 10 / 11</small><strong>下载安装包</strong></span>
                   <DownloadSimple size={20} weight="bold" />
@@ -462,7 +513,7 @@ function HomePage() {
 
         <section className="skill-callout" id="skill">
           <div className="container skill-callout-inner">
-            <div><BracketsCurly size={34} weight="duotone" /><h2>不只下载，也可以自己创造。</h2><p>开源 Skill 会指导 Agent 读取 WorkBuddy 的真实 UI，生成 selector map，并完成设计、测试与打包。</p></div>
+            <div><BracketsCurly size={34} weight="duotone" /><h2>不只下载，也可以自己创造。</h2><p>公开源码 Skill 会指导 Agent 读取 WorkBuddy 的真实 UI，生成 selector map，并完成设计、测试与打包。</p></div>
             <div className="skill-actions"><a className="primary-button" href="#/learn">学习这个 Skill <BookOpen size={18} /></a><a href={skillRepo} target="_blank" rel="noreferrer"><GithubLogo size={19} /> GitHub 源码</a></div>
           </div>
         </section>
@@ -470,7 +521,7 @@ function HomePage() {
 
       <footer className="footer container">
         <Logo />
-        <p>皮肤、管理器与开源生成 Skill，集中在一个入口。</p>
+        <p>© 2026 @晓阳的百宝箱 · <a href="#/terms">版权与使用条款</a> · timelinex@163.com</p>
         <a className="icon-button" href="https://github.com/TimekeeperXY/workbuddy-skin-gallery/releases" target="_blank" rel="noreferrer" aria-label="查看 GitHub Releases"><GithubLogo size={20} /></a>
       </footer>
 
@@ -500,6 +551,7 @@ function App() {
     return () => window.removeEventListener("hashchange", updateRoute);
   }, []);
   const learnRoutes = new Set(["#/learn", "#install", "#workflow", "#prompt"]);
+  if (route === "#/terms") return <TermsPage />;
   return learnRoutes.has(route) ? <LearnPage /> : <HomePage />;
 }
 
