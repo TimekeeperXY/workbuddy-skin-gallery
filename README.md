@@ -42,4 +42,4 @@ npm run build
 
 ## 下载架构
 
-GitHub 对普通仓库文件有 100 MB 单文件限制。Windows 和 macOS 管理器安装包放在 `v0.1.0` Release，Gallery 页面通过固定 Release URL 下载；当前 Windows 管理器下载指向 `WorkBuddy-Skin-Manager-Setup-0.1.5.exe`。网页源码和压缩预览图由 GitHub Pages 托管。
+GitHub 对普通仓库文件有 100 MB 单文件限制。Windows 和 macOS 管理器安装包放在 `v0.1.0` Release，Gallery 页面通过固定 Release URL 下载；当前 Windows 管理器下载指向 `WorkBuddy-Skin-Manager-Setup-0.1.6.exe`。网页源码和压缩预览图由 GitHub Pages 托管。
