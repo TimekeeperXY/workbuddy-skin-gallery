@@ -208,16 +208,13 @@ img { display: block; max-width: 100%; }
 .skill-file-foot svg { color: var(--accent); }
 
 .install-section { padding-block: 120px 140px; }
-.agent-tabs { display: flex; gap: 6px; margin-top: 46px; padding-bottom: 18px; overflow-x: auto; border-bottom: 1px solid var(--line); }
-.agent-tabs button { min-height: 44px; display: inline-flex; align-items: center; gap: 8px; padding: 0 16px; border: 0; border-radius: 9px; color: var(--muted); background: transparent; white-space: nowrap; cursor: pointer; }
-.agent-tabs button:hover { color: var(--text); }
-.agent-tabs button.active { color: #061410; background: var(--accent); font-weight: 760; }
-.install-console { margin-top: 30px; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: #030706; }
+.install-console { margin-top: 46px; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: #030706; }
 .console-heading { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 18px; border-bottom: 1px solid rgba(159,198,188,.16); }
 .console-heading > div { display: grid; gap: 4px; }
 .console-heading small { color: #809891; }
 .console-heading strong { color: #effffb; font-size: 14px; }
 .install-console pre { min-height: 180px; margin: 0; padding: 28px; overflow: auto; color: #c7f7eb; font: 14px/1.75 "Cascadia Mono", Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+.install-console pre a { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
 .copy-button { min-height: 38px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 0 12px; border: 1px solid rgba(159,198,188,.24); border-radius: 8px; color: #dffbf4; background: #111b18; cursor: pointer; white-space: nowrap; }
 .copy-button:hover { border-color: var(--accent); }
 .copy-button:active { transform: translateY(1px); }
@@ -359,7 +356,6 @@ img { display: block; max-width: 100%; }
   .skill-file { width: 100%; margin: 0; transform: none; }
   .skill-file pre { min-height: 280px; padding: 22px; font-size: 12px; }
   .install-section { padding-block: 88px; }
-  .agent-tabs { margin-inline: -16px; padding-inline: 16px; }
   .console-heading { align-items: flex-start; }
   .install-console pre { min-height: 240px; padding: 20px; font-size: 12px; }
   .install-steps { grid-template-columns: 1fr; gap: 24px; }

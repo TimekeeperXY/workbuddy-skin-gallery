@@ -17,7 +17,6 @@ import {
   Moon,
   Package,
   Palette,
-  Robot,
   Sparkle,
   Sun,
   TerminalWindow,
@@ -164,32 +163,7 @@ const tools = [
 
 const filters = ["全部", "深色", "浅色", "动漫", "国风", "特摄", "舞台", "氛围"];
 
-const agentGuides = {
-  workbuddy: {
-    label: "WorkBuddy",
-    kicker: "直接交给助理",
-    command: `请打开并学习这个 Agent Skill：\n${skillRepo}\n\n先读取仓库根目录 SKILL.md，再检查 references 和 scripts。确认能力后，启动 WorkBuddy 的 Console DOM 审计，生成 selector map，并基于我接下来提供的参考图制作可导入的 .wbskin。不要修改 app.asar。`,
-    steps: ["把上面的完整指令发送给支持文件与终端操作的 WorkBuddy 助理。", "允许助理克隆公开仓库，并确认已读取根目录 SKILL.md。", "准备参考图与重点页面，让助理先审计 DOM，再开始设计。"],
-  },
-  codex: {
-    label: "Codex",
-    kicker: "安装到个人 Skills",
-    command: `git clone ${skillRepo}.git "$env:USERPROFILE\\.codex\\skills\\workbuddy-dream-skin"`,
-    steps: ["在 PowerShell 执行安装命令。", "重新打开 Codex，或开始一个新任务让 Skills 重新载入。", "输入：使用 workbuddy-dream-skin skill，为正在运行的 WorkBuddy 制作完整皮肤。"],
-  },
-  openclaw: {
-    label: "OpenClaw",
-    kicker: "通过官方 Skills CLI",
-    command: "openclaw skills install git:TimekeeperXY/workbuddy-dream-skin-skill@main --global",
-    steps: ["在 OpenClaw 所在主机执行安装命令。", "使用 openclaw skills list 确认 skill 已被识别。", "新建会话并要求它使用 workbuddy-dream-skin 生成 WorkBuddy 皮肤。"],
-  },
-  generic: {
-    label: "其他 Agent",
-    kicker: "兼容 SKILL.md 标准",
-    command: `git clone ${skillRepo}.git .agents/skills/workbuddy-dream-skin`,
-    steps: ["把仓库克隆到产品支持的个人或工作区 Skills 目录。", "确认 Agent 能读取仓库根目录的 SKILL.md。", "把 WorkBuddy 运行环境、参考图和目标页面交给 Agent，并要求先执行 DOM 审计。"],
-  },
-};
+const universalSkillInstruction = `请安装这个workbuddy皮肤生成技能：${skillRepo}，安装完成后学习并复述对这个skill的理解，最后告知我未来该如何使用这个skill`;
 
 function Logo() {
   return (
@@ -258,8 +232,6 @@ function CopyButton({ value }) {
 }
 
 function LearnPage() {
-  const [agent, setAgent] = useState("workbuddy");
-  const guide = agentGuides[agent];
   const starterPrompt = `使用 workbuddy-dream-skin skill。先连接正在运行的 WorkBuddy，读取真实 DOM 和 computed styles，生成 selector map，再根据我的参考图制作主题。重点验证菜单、弹窗、专家卡片、文件产物、悬停状态和首次启用流程，最后输出 .wbskin 与独立一键启用包。`;
 
   return (
@@ -283,7 +255,7 @@ function LearnPage() {
             <h1>教会你的 Agent，亲手设计 WorkBuddy 皮肤。</h1>
             <p>从真实 DOM 到 selector map，再到可安装的 `.wbskin`。这套 Skill 把设计、注入、测试和打包变成一条可复用流程。</p>
             <div className="hero-actions">
-              <a className="primary-button" href="#install">选择你的 Agent <ArrowDown size={18} weight="bold" /></a>
+              <a className="primary-button" href="#install">复制安装指令 <ArrowDown size={18} weight="bold" /></a>
               <a className="text-button" href={skillRepo} target="_blank" rel="noreferrer"><GithubLogo size={19} /> 查看源码</a>
             </div>
           </div>
@@ -296,22 +268,15 @@ function LearnPage() {
 
         <section className="install-section container" id="install">
           <div className="section-title">
-            <h2>选择 Agent，复制一条指令。</h2>
-            <p>仓库根目录就是标准 `SKILL.md`，可以被支持 Agent Skills 的产品直接学习。</p>
-          </div>
-          <div className="agent-tabs" role="tablist" aria-label="选择 Agent 产品">
-            {Object.entries(agentGuides).map(([key, item]) => (
-              <button key={key} role="tab" aria-selected={agent === key} className={agent === key ? "active" : ""} onClick={() => setAgent(key)}>
-                <Robot size={18} weight={agent === key ? "fill" : "regular"} /> {item.label}
-              </button>
-            ))}
+            <h2>一条指令，交给任何支持 Skill 的 Agent。</h2>
+            <p>无需选择产品。把下面这段话完整发送给你的 Agent，由它完成安装、学习和使用说明。</p>
           </div>
           <div className="install-console">
-            <div className="console-heading"><div><small>{guide.kicker}</small><strong>{guide.label} 安装与学习指令</strong></div><CopyButton value={guide.command} /></div>
-            <pre><code>{guide.command}</code></pre>
+            <div className="console-heading"><div><small>通用 Agent 指令</small><strong>安装、学习并复述 Skill</strong></div><CopyButton value={universalSkillInstruction} /></div>
+            <pre><code>请安装这个workbuddy皮肤生成技能：<a href={skillRepo} target="_blank" rel="noreferrer">TimekeeperXY/workbuddy-dream-skin-skill</a>，安装完成后学习并复述对这个skill的理解，最后告知我未来该如何使用这个skill</code></pre>
           </div>
           <ol className="install-steps">
-            {guide.steps.map((step, index) => <li key={step}><span>{String(index + 1).padStart(2, "0")}</span><p>{step}</p></li>)}
+            {["将完整指令发送给 Agent。", "等待 Agent 安装并学习仓库中的 SKILL.md。", "根据 Agent 的复述确认能力，然后按它给出的方式开始制作皮肤。"].map((step, index) => <li key={step}><span>{String(index + 1).padStart(2, "0")}</span><p>{step}</p></li>)}
           </ol>
         </section>
 

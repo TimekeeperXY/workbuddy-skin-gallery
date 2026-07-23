@@ -9,7 +9,7 @@ WorkBuddy 皮肤、管理器与公开源码生成 Skill 的统一入口，部署
 - Landing Page：管理器、皮肤库与公开源码 Skill 三条快速路径
 - 皮肤库：筛选、预览并下载可直接导入的 `.wbskin`
 - 管理器：下载 Windows 或 macOS 版本
-- Skill 学习页：访问 `#/learn`，按 Agent 产品复制安装命令与启动提示词
+- Skill 学习页：访问 `#/learn`，复制适用于所有支持 Skill 产品的统一安装与学习指令
 
 皮肤生成 Skill 源码：<https://github.com/TimekeeperXY/workbuddy-dream-skin-skill>
 
