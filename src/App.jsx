@@ -458,7 +458,7 @@ function HomePage() {
                   <span><small>Windows 10 / 11</small><strong>下载安装包</strong></span>
                   <DownloadSimple size={20} weight="bold" />
                 </a>
-                <a className="os-button" href={`${releaseBase}/WorkBuddy-Skin-Manager-0.1.7-arm64.dmg`}>
+                <a className="os-button" href={`${releaseBase}/WorkBuddy-Skin-Manager-0.1.8-arm64.dmg`}>
                   <AppleLogo size={24} weight="duotone" />
                   <span><small>macOS</small><strong>下载安装包</strong></span>
                   <DownloadSimple size={20} weight="bold" />
@@ -467,7 +467,7 @@ function HomePage() {
               <div className="macos-note">
                 <strong>macOS 提示“文件损坏”时</strong>
                 <p>这是未签名应用触发的隔离保护。下载后可在终端执行下面命令，再打开 DMG 并把应用拖入 Applications。</p>
-                <code>xattr -dr com.apple.quarantine ~/Downloads/WorkBuddy-Skin-Manager-0.1.7-arm64.dmg</code>
+                <code>xattr -dr com.apple.quarantine ~/Downloads/WorkBuddy-Skin-Manager-0.1.8-arm64.dmg</code>
                 <p>如果已经拖入 Applications，但打开仍提示损坏，再执行：</p>
                 <code>xattr -dr com.apple.quarantine "/Applications/WorkBuddy Skin Manager.app"</code>
               </div>
