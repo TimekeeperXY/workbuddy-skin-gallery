@@ -35,7 +35,7 @@ const themes = [
     id: "baxian",
     name: "八仙！星夜归位",
     author: "@晓阳的百宝箱",
-    rights: "原创 · 个人免费",
+    rights: "粉丝创作 · 非商业",
     version: "1.0.0",
     mode: "深色",
     category: "国风",
